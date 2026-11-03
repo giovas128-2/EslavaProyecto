@@ -1,0 +1,24 @@
+-- Importar una vez en HeidiSQL o phpMyAdmin. No elimina cuentas existentes.
+USE proyectoeslava;
+CREATE TABLE IF NOT EXISTS bitacora (
+ id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+ fecha DATE NOT NULL, hora TIME NOT NULL,
+ intento ENUM('exitoso','fallido') NOT NULL,
+ usuario VARCHAR(254) NOT NULL,
+ evento ENUM('entrada','salida') NOT NULL,
+ cuenta_id INT UNSIGNED NULL, origen VARCHAR(40) NULL,
+ INDEX fecha_evento (fecha,hora)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS empleados (
+ id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+ nombre VARCHAR(100) NOT NULL, correoElectronico VARCHAR(254) NOT NULL UNIQUE,
+ puesto VARCHAR(100) NOT NULL, telefono VARCHAR(25) NOT NULL DEFAULT '',
+ contrasena VARCHAR(255) NOT NULL,
+ fechaRegistro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS productos (
+ id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+ producto VARCHAR(150) NOT NULL, stock INT UNSIGNED NOT NULL DEFAULT 0,
+ imagen MEDIUMBLOB NOT NULL, imagen_tipo VARCHAR(30) NOT NULL,
+ fecha DATE NOT NULL, hora TIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -1,0 +1,1 @@
+</main><footer class="site-footer"><span>GUITARIXTA</span><span>Administración de tienda</span></footer></body></html>

@@ -1,0 +1,7 @@
+<?php
+require_once __DIR__.'/../includes/sesion.php';require_once __DIR__.'/../includes/comercio.php';
+if(!isset($_SESSION['usuario'])){$_SESSION['despues_login']='misPedidos.php';header('Location: login.php');exit;}
+$pedidos=[];$error='';try{$u=usuarioCompra();$q=dbTienda()->prepare('SELECT * FROM pedidos WHERE usuario_id=? AND usuario_origen=? ORDER BY id DESC LIMIT 100');$q->execute([$u['id'],$u['origen']]);$pedidos=$q->fetchAll();}catch(Throwable $e){$error='No se pudieron cargar tus pedidos.';}
+$titulo='Mis pedidos';require __DIR__.'/../includes/shopHeader.php';?>
+<main class="section"><span class="eyebrow">TU MÚSICA, EN CAMINO</span><h1>Mis pedidos</h1><?php if($error): ?><p class="notice error"><?= escapar($error) ?></p><?php endif; ?>
+<?php foreach($pedidos as $pr): ?><a class="order-row" href="pedido.php?id=<?= (int)$pr['id'] ?>"><div><strong><?= escapar($pr['folio']) ?></strong><small><?= escapar($pr['creado_en']) ?></small></div><span class="status-pill"><?= escapar(str_replace('_',' ',$pr['estado'])) ?><?= $pr['stripe_modo']==='test'?' · PRUEBA':'' ?></span><strong><?= dinero((int)$pr['total_centavos']) ?></strong><span>Ver pedido →</span></a><?php endforeach; ?><?php if(!$pedidos && !$error): ?><div class="empty-state"><h2>Tu próxima guitarra te espera.</h2><p>Aún no has realizado pedidos.</p><a class="button" href="tienda.php">Explorar guitarras →</a></div><?php endif; ?></main><?php require __DIR__.'/../includes/shopFooter.php'; ?>

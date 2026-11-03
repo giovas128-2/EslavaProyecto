@@ -1,0 +1,4 @@
+includes/comercio_local.php
+*.log
+
+/includes/gmail_local.php

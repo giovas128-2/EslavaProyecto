@@ -1,0 +1,5 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title><?= escapar($titulo) ?> | Guitarixta</title><link rel="stylesheet" href="../assets/css/login.css"><link rel="stylesheet" href="../assets/css/admin.css"></head><body>
+<header class="site-header"><a class="brand" href="admin.php">GUITARIXTA<span class="brand-dot">.</span></a><form action="../components/cerrarSesion.php" method="post"><input type="hidden" name="csrf" value="<?= escapar($_SESSION['csrf']) ?>"><button class="admin-cancel">Cerrar sesión ↗</button></form></header>
+<?php require __DIR__ . '/adminMenu.php'; ?>
+<main class="panel-main"><div class="panel-heading"><div><span class="eyebrow">ADMINISTRACIÓN DE TIENDA</span><h1><?= escapar($titulo) ?></h1></div><span><?= escapar($_SESSION['usuario']['nombre']) ?></span></div>
+<?php if (!empty($_SESSION['panel_mensaje'])): ?><p class="admin-notice" role="status"><?= escapar($_SESSION['panel_mensaje']) ?></p><?php unset($_SESSION['panel_mensaje']); endif; ?>
