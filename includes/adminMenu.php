@@ -6,6 +6,7 @@
       <a href="bitacora.php">02 · Bitácora de accesos</a>
       <a href="productos.php">03 · Productos / guitarras</a>
       <a href="pedidosAdmin.php">04 · Pedidos y entregas</a>
+      <a href="reporte.php">05 · Reporte</a>
       <a href="tienda.php">Visitar tienda ↗</a>
     </div>
   </details>

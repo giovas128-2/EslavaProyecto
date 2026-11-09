@@ -103,7 +103,8 @@ try {
     $_SESSION['csrf'] = bin2hex(random_bytes(32));
     unset($_SESSION['error'], $_SESSION['correo_intentado']);
     $next=$_SESSION['despues_login']??'';unset($_SESSION['despues_login']);
-    $destino = in_array($next,['checkout.php','misPedidos.php'],true) ? '../page/'.$next : ($origen === 'registrarAdmins' ? '../page/admin.php' : '../page/tienda.php');
+    $retornoQr = is_string($next) && preg_match('/^productoQr\.php\?(?:detalle=[1-9][0-9]{0,17}|carrito=[a-f0-9]{64})$/D', $next);
+    $destino = (in_array($next,['checkout.php','misPedidos.php'],true) || $retornoQr) ? '../page/'.$next : ($origen === 'registrarAdmins' ? '../page/admin.php' : '../page/tienda.php');
     header('Location: ' . $destino, true, 303);
     exit;
 } catch (PDOException $e) {
